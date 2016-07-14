@@ -16,7 +16,6 @@ exports.paths = {
   index: path.join(__dirname, '../web/public/index.html'),
 
 };
-
 // Used for stubbing paths for tests, do not modify
 exports.initialize = function(pathsObj){
   _.each(pathsObj, function(path, type) {
@@ -27,19 +26,52 @@ exports.initialize = function(pathsObj){
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
 
-exports.readListOfUrls = function(){
+exports.readListOfUrls = function(callback){
+  // read file from paths list
+  fs.readFile(exports.paths.list, function(err, data){
+    if(err){
+      throw err;
+    }
+    // sringify the data and split it into an array
 
+    var data = data.toString().split('\n');
+    console.log('$$$$$$$$$$$$$$$$$$$$', data);
+    // invoke the callback function passing in the data as an arg
+    callback(data);
+  })
 };
 
-exports.isUrlInList = function(){
-
+exports.isUrlInList = function(url, callback){
+  var file = exports.paths.list;
+  fs.readFile(file, function(err, data){
+    if(err){
+      throw err;
+    }
+    var data = data.toString();
+    callback('side');
+  });
 };
 
-exports.addUrlToList = function(){
+exports.addUrlToList = function(url, callback){
+  var file = exports.paths.list;
+  fs.appendFile(file, url, function(err){
+    if(err){
+      throw err;
+    }
+  });
+  callback();
 };
 
-exports.isUrlArchived = function(){
+exports.isUrlArchived = function(url, callback){
+  var file = exports.paths.archivedSites + '/' + url;
+  fs.exists(file, function(exist){
+    callback(exist);
+  });
 };
 
-exports.downloadUrls = function(){
+exports.downloadUrls = function(urlArray){
+  var file = exports.paths.archivedSites;
+  urlArray.stringify()
+  
+
 };
