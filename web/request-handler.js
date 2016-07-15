@@ -5,10 +5,23 @@ var head = require('./http-helpers');
 var fs = require('fs');
 // require more modules/folders here!
 
-exports.handleRequest = function (req, res) {
- var statusCode = 200;
+var actions = {
+  'POST': function(req, res){
 
- // ?if request is coming ot index and is a POST
+  },
+  'GET': function(req, res){
+
+  }
+}
+
+
+
+
+
+exports.handleRequest = function (req, res) {
+
+
+ // if request is coming ot index and is a POST
  if (req.url === '/') {
    if(req.method === 'POST'){
 
@@ -48,6 +61,7 @@ exports.handleRequest = function (req, res) {
     res.end(raw);
   });
  }else{
+    
     res.writeHead(404, head.headers)
     res.end();
  }

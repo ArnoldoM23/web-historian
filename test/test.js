@@ -141,13 +141,15 @@ describe("archive helpers", function(){
   describe("#downloadUrls", function () {
     it("should download all pending urls in the list", function (done) {
       var urlArray = ["www.example.com", "www.google.com"];
-      archive.downloadUrls(urlArray);
 
       // Ugly hack to wait for all downloads to finish.
+      var test = fs.readdirSync(archive.paths.archivedSites);
+      
       setTimeout(function () {
         expect(fs.readdirSync(archive.paths.archivedSites)).to.deep.equal(urlArray);
         done();
       }, 25);
+      archive.downloadUrls(urlArray);
     });
   });
 });
